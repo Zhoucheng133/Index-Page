@@ -1,15 +1,20 @@
 <template>
-  <div>
-    <DataTable :value="data" tableStyle="min-width: 50rem">
-      <Column field="name" header="名称"></Column>
-      <Column field="port" header="端口"></Column>
-      <Column field="webui" header="WebUI">
-        <template #body="slotProps">
-          {{ slotProps.data.webui==1 ? "❌" : "✅" }}
-        </template>
-      </Column>
-      <Column field="tip" header="备注"></Column>
-    </DataTable>
+  <div class="bg">
+    <div class="table">
+      <div class="title">
+        {{ hello }}
+      </div>
+      <DataTable :value="data">
+        <Column field="name" header="名称"></Column>
+        <Column field="port" header="端口"></Column>
+        <Column field="webui" header="UI">
+          <template #body="slotProps">
+            {{ slotProps.data.webui==1 ? "❌" : "✅" }}
+          </template>
+        </Column>
+        <Column field="tip" header="备注"></Column>
+      </DataTable>
+    </div>
   </div>
 </template>
 
@@ -27,6 +32,18 @@ interface Data{
   tip: string
 }
 
+const hello=ref("");
+const now=new Date();
+if(now.getHours()<6){
+  hello.value="晚上好！";
+}else if(now.getHours()<12){
+  hello.value="早上好!";
+}else if(now.getHours()<18){
+  hello.value="下午好!";
+}else{
+  hello.value="晚上好！";
+}
+
 const data=ref<Data[]>([]);
 async function initData(){
   const {data: response}=await axios.get(`${hostname}/api/list`);
@@ -42,3 +59,19 @@ onMounted(()=>{
 })
 
 </script>
+
+<style scoped>
+.title{
+  text-align: left;
+  padding-left: 16px;
+}
+.bg{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.table{
+  width: 600px;
+  user-select: none;
+}
+</style>
