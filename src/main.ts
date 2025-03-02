@@ -5,11 +5,9 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 import router from './router';
-
-const app = createApp(App);
+import ToastService from 'primevue/toastservice';
 
 const color="cyan";
-
 const MyPreset = definePreset(Aura, {
   semantic: {
     primary: {
@@ -28,13 +26,14 @@ const MyPreset = definePreset(Aura, {
   }
 });
 
-app.use(router)
+const app = createApp(App);
 
 app.use(PrimeVue, {
   theme: {
     preset: MyPreset
   }
 });
-
+app.use(router);
+app.use(ToastService);
 
 app.mount('#app');
