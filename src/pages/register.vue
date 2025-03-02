@@ -1,5 +1,4 @@
 <template>
-  <Toast />
   <div class="panel">
     <div class="title">注册</div>
     <div class="sub">Hi, 从这里开始吧👋</div>
@@ -15,7 +14,7 @@
       <div className="label">重复密码</div>
       <InputText type="password" v-model="rePassword" style="width: 100%;" />
     </div>
-    <Button style="margin-top: 30px; width: 100%;" @click="registerHandler">注册</Button>
+    <Button style="margin-top: 30px; width: 100%; margin-bottom: 50px;" @click="registerHandler">注册</Button>
   </div>
 </template>
 
@@ -23,14 +22,18 @@
 import { ref } from 'vue';
 import { InputText, Button } from 'primevue';
 import { useToast } from 'primevue/usetoast';
-import Toast from 'primevue/toast';
+import axios from 'axios';
+import { hostname } from '../static/env';
+import CryptoJS from 'crypto-js';
+import { useRouter } from 'vue-router';
 const toast = useToast();
+const router=useRouter();
 
 const username=ref("");
 const password=ref("");
 const rePassword=ref("");
 
-const registerHandler=()=>{
+const registerHandler=async ()=>{
   if(username.value.length==0){
     toast.add({ severity: 'error', summary: '注册失败', detail: '用户名不能为空', life: 3000 });
     return;
@@ -43,6 +46,15 @@ const registerHandler=()=>{
   }else if(password.value!=rePassword.value){
     toast.add({ severity: 'error', summary: '注册失败', detail: '两次密码输入不一致', life: 3000 });
     return;
+  }
+
+  const {data: response}=await axios.post(`${hostname}/api/register`, {
+    username: username.value,
+    password: CryptoJS.SHA256("hello world!").toString()
+  })
+  if(response.ok){
+    toast.add({ severity: 'success', summary: '注册成功', detail: '正在跳转到登录', life: 3000 });
+    router.replace("/login");
   }
 }
 

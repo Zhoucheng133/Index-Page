@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <router-view v-if="!loading"></router-view>
 </template>
 
@@ -8,12 +9,14 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { hostname } from './static/env';
 const router=useRouter();
+import Toast from 'primevue/toast';
 const loading=ref(true);
 
 onMounted(async ()=>{
-
   const {data: response}=await axios.get(`${hostname}/api/init`);
-  if(response.msg){
+  if(!response.ok){
+    return;
+  }else if(response.msg){
     loading.value=false;
     router.replace("/register")
   }else{
