@@ -1,16 +1,28 @@
 <template>
-  <div v-if="loading" class="loading_bg">
-    加载中
-  </div>
+  <router-view v-if="!loading"></router-view>
 </template>
 
 <script setup lang="ts">
+import axios from 'axios';
 import { onMounted, ref } from 'vue';
-
+import { useRouter } from 'vue-router';
+import { hostname } from './static/env';
+const router=useRouter();
 const loading=ref(true);
 
-onMounted(()=>{
-  
+onMounted(async ()=>{
+
+  const {data: response}=await axios.get(`${hostname}/api/init`);
+  if(response.msg){
+    loading.value=false;
+    router.replace("/register")
+  }else{
+    const username=localStorage.getItem("username");
+    const password=localStorage.getItem("password");
+    if(username==null || password==null){
+      router.push("/login")
+    }
+  }
 })
 </script>
 
