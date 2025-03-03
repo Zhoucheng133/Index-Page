@@ -22,7 +22,8 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { hostname } from '../static/env';
-import { Column, DataTable } from 'primevue';
+import { Column, DataTable, useToast } from 'primevue';
+const toast = useToast();
 
 interface Data{
   id: number,
@@ -46,10 +47,16 @@ if(now.getHours()<6){
 
 const data=ref<Data[]>([]);
 async function initData(){
-  const {data: response}=await axios.get(`${hostname}/api/list`);
-  console.log(response);
-  if(response!=null){
+  const {data: response}=await axios.get(`${hostname}/api/list`, {
+    headers: {
+      name: localStorage.getItem("name"),
+      password: localStorage.getItem("password")
+    }
+  });
+  if(response!=null && response.ok){
     data.value=response.data;
+  }else if(response!=null){
+    toast.add({ severity: 'error', summary: '请求出错', detail: response.msg, life: 3000 });
   }
 }
 

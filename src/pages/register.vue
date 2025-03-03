@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="body">
     <div class="panel">
       <div class="title">注册</div>
       <div class="sub">Hi, 从这里开始吧👋</div>
       <div class="item">
         <div className="label">用户名</div>
-        <InputText type="text" v-model="username" style="width: 100%;" />
+        <InputText type="text" v-model="name" style="width: 100%;" />
       </div>
       <div class="item">
         <div className="label">密码</div>
@@ -31,12 +31,12 @@ import { useRouter } from 'vue-router';
 const toast = useToast();
 const router=useRouter();
 
-const username=ref("");
+const name=ref("");
 const password=ref("");
 const rePassword=ref("");
 
 const registerHandler=async ()=>{
-  if(username.value.length==0){
+  if(name.value.length==0){
     toast.add({ severity: 'error', summary: '注册失败', detail: '用户名不能为空', life: 3000 });
     return;
   }else if(password.value.length==0){
@@ -51,7 +51,7 @@ const registerHandler=async ()=>{
   }
 
   const {data: response}=await axios.post(`${hostname}/api/register`, {
-    username: username.value,
+    name: name.value,
     password: CryptoJS.SHA256(password.value).toString()
   })
   if(response.ok){

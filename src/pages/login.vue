@@ -5,7 +5,7 @@
       <div class="sub">Hi, 欢迎回来👋</div>
       <div class="item">
         <div className="label">用户名</div>
-        <InputText type="text" v-model="username" style="width: 100%;" />
+        <InputText type="text" v-model="name" style="width: 100%;" />
       </div>
       <div class="item">
         <div className="label">密码</div>
@@ -27,19 +27,19 @@ import { useRouter } from 'vue-router';
 const toast = useToast();
 const router=useRouter();
 
-const username=ref("");
+const name=ref("");
 const password=ref("");
 
 const loginHandler=async ()=>{
 
   const {data: response}=await axios.post(`${hostname}/api/login`, {
-    username: username.value,
+    name: name.value,
     password: CryptoJS.SHA256(password.value).toString()
   })
   if(response.ok){
-    localStorage.setItem("username", username.value)
-    localStorage.setItem("password", password.value)
-    toast.add({ severity: 'success', summary: '登录', detail: '正在跳转到主页', life: 3000 });
+    localStorage.setItem("name", name.value)
+    localStorage.setItem("password", CryptoJS.SHA256(password.value).toString())
+    toast.add({ severity: 'success', summary: '登录成功', detail: '正在跳转到主页', life: 3000 });
     router.push("/");
   }else{
     toast.add({ severity: 'error', summary: '登录失败', detail: response.msg, life: 3000 });
