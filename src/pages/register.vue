@@ -1,20 +1,22 @@
 <template>
-  <div class="panel">
-    <div class="title">注册</div>
-    <div class="sub">Hi, 从这里开始吧👋</div>
-    <div class="item">
-      <div className="label">用户名</div>
-      <InputText type="text" v-model="username" style="width: 100%;" />
+  <div>
+    <div class="panel">
+      <div class="title">注册</div>
+      <div class="sub">Hi, 从这里开始吧👋</div>
+      <div class="item">
+        <div className="label">用户名</div>
+        <InputText type="text" v-model="username" style="width: 100%;" />
+      </div>
+      <div class="item">
+        <div className="label">密码</div>
+        <InputText type="password" v-model="password" style="width: 100%;" />
+      </div>
+      <div class="item">
+        <div className="label">重复密码</div>
+        <InputText type="password" v-model="rePassword" style="width: 100%;" />
+      </div>
+      <Button style="margin-top: 30px; width: 100%; margin-bottom: 50px;" @click="registerHandler">注册</Button>
     </div>
-    <div class="item">
-      <div className="label">密码</div>
-      <InputText type="password" v-model="password" style="width: 100%;" />
-    </div>
-    <div class="item">
-      <div className="label">重复密码</div>
-      <InputText type="password" v-model="rePassword" style="width: 100%;" />
-    </div>
-    <Button style="margin-top: 30px; width: 100%; margin-bottom: 50px;" @click="registerHandler">注册</Button>
   </div>
 </template>
 
@@ -55,21 +57,20 @@ const registerHandler=async ()=>{
   if(response.ok){
     toast.add({ severity: 'success', summary: '注册成功', detail: '正在跳转到登录', life: 3000 });
     router.replace("/login");
+  }else{
+    toast.add({ severity: 'error', summary: '注册失败', detail: response.msg, life: 3000 });
   }
 }
 
 </script>
 
-<style>
-body{
+<style scoped>
+.body{
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
 }
-</style>
-
-<style scoped>
 .panel{
   width: 400px;
   user-select: none;
