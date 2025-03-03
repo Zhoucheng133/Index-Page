@@ -50,7 +50,7 @@ const registerHandler=async ()=>{
 
   const {data: response}=await axios.post(`${hostname}/api/register`, {
     username: username.value,
-    password: CryptoJS.SHA256("hello world!").toString()
+    password: CryptoJS.SHA256(password.value).toString()
   })
   if(response.ok){
     toast.add({ severity: 'success', summary: '注册成功', detail: '正在跳转到登录', life: 3000 });
