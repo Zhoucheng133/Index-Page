@@ -3,7 +3,7 @@
     <div class="table">
       <div class="title">
         <div>{{ hello }}</div>
-        <Button label="添加" style="margin-left: auto;" variant="text" size="small" />
+        <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAdd=true" />
       </div>
       <DataTable :value="data">
         <Column field="name" header="名称"></Column>
@@ -17,6 +17,7 @@
       </DataTable>
     </div>
   </div>
+  <AddDialog :showAdd="showAdd" @closeAdd="closeAdd" />
 </template>
 
 <script lang="ts" setup>
@@ -25,6 +26,10 @@ import { onMounted, ref } from 'vue';
 import { hostname } from '../static/env';
 import { Column, DataTable, useToast, Button } from 'primevue';
 const toast = useToast();
+const showAdd=ref(false);
+const closeAdd=()=>showAdd.value=false;
+
+import AddDialog from '../components/add_dialog.vue';
 
 interface Data{
   id: number,
