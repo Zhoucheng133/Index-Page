@@ -1,0 +1,25 @@
+FROM golang:alpine
+
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/security.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
+WORKDIR /app
+
+COPY . .
+ENV TZ=Asia/Shanghai
+
+RUN go env -w GO111MODULE=on
+RUN go env -w  GOPROXY=https://goproxy.cn,direct
+
+RUN go mod tidy
+RUN go build -o core .
+
+
+
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 8081
+
+RUN ["nginx", "&&", "./core"]
