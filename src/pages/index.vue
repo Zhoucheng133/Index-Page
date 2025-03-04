@@ -37,7 +37,7 @@ import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 
 const openHandler=(item: Data)=>{
-
+  window.location.href=`http://${window.location.hostname}:${item.port}`;
 }
 
 const delHandler=async (event: any, item: Data)=>{
