@@ -10,14 +10,14 @@
         <Column field="port" header="端口"></Column>
         <Column field="webui" header="UI">
           <template #body="slotProps">
-            {{ slotProps.data.webui==1 ? "❌" : "✅" }}
+            {{ slotProps.data.webui==1 ? "✅": "❌" }}
           </template>
         </Column>
         <Column field="tip" header="备注"></Column>
       </DataTable>
     </div>
   </div>
-  <AddDialog ref="addDialog" />
+  <AddDialog ref="addDialog" @refresh="initData" />
 </template>
 
 <script lang="ts" setup>
@@ -65,7 +65,7 @@ async function initData(){
     }
   });
   if(response!=null && response.ok){
-    data.value=response.data;
+    data.value=response.msg;
   }else if(response!=null){
     toast.add({ severity: 'error', summary: '请求出错', detail: response.msg, life: 3000 });
   }
