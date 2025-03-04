@@ -2,7 +2,8 @@
   <div class="bg">
     <div class="table">
       <div class="title">
-        {{ hello }}
+        <div>{{ hello }}</div>
+        <Button label="添加" style="margin-left: auto;" variant="text" size="small" />
       </div>
       <DataTable :value="data">
         <Column field="name" header="名称"></Column>
@@ -22,7 +23,7 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { hostname } from '../static/env';
-import { Column, DataTable, useToast } from 'primevue';
+import { Column, DataTable, useToast, Button } from 'primevue';
 const toast = useToast();
 
 interface Data{
@@ -71,6 +72,8 @@ onMounted(()=>{
 .title{
   text-align: left;
   padding-left: 16px;
+  display: flex;
+  align-items: center;
 }
 .bg{
   display: flex;
@@ -80,5 +83,6 @@ onMounted(()=>{
 .table{
   width: 600px;
   user-select: none;
+  margin-top: 15px;
 }
 </style>
