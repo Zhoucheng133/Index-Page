@@ -1,5 +1,6 @@
 <template>
   <Toast />
+  <ConfirmPopup />
   <router-view v-if="!loading"></router-view>
 </template>
 
@@ -8,6 +9,7 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { hostname } from './static/env';
+import { ConfirmPopup } from 'primevue';
 const router=useRouter();
 import Toast from 'primevue/toast';
 const loading=ref(true);

@@ -5,15 +5,21 @@
         <div>{{ hello }}</div>
         <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAddHandler" />
       </div>
-      <DataTable :value="data">
+      <DataTable :value="data" stripedRows>
         <Column field="name" header="名称"></Column>
-        <Column field="port" header="端口"></Column>
+        <Column field="port" header="端口" sortable></Column>
         <Column field="webui" header="UI">
           <template #body="slotProps">
             {{ slotProps.data.webui==1 ? "✅": "❌" }}
           </template>
         </Column>
         <Column field="tip" header="备注"></Column>
+        <Column header="操作">
+          <template #body="slotProps">
+            <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
+            <Button icon="pi pi-link" style="margin-left: 10px;" @click="openHandler(slotProps.data)" />
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>
@@ -26,8 +32,46 @@ import { onMounted, ref } from 'vue';
 import { hostname } from '../static/env';
 import { Column, DataTable, useToast, Button } from 'primevue';
 const toast = useToast();
-
 import AddDialog from '../components/add_dialog.vue';
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
+
+const openHandler=(item: Data)=>{
+
+}
+
+const delHandler=async (event: any, item: Data)=>{
+  confirm.require({
+    target: event.currentTarget,
+    message: '你确定要删除这个索引吗',
+    icon: 'pi pi-exclamation-triangle',
+    rejectProps: {
+      label: '取消',
+      severity: 'secondary',
+      outlined: true,
+      size: "small",
+    },
+    acceptProps: {
+      label: '删除',
+      size: "small",
+      severity: "danger"
+    },
+    accept: async () => {
+      const {data: response}=await axios.delete(`${hostname}/api/del/${item.id}`, {
+        headers: {
+          name: localStorage.getItem("name"),
+          password: localStorage.getItem("password")
+        }
+      });
+      if(response.msg){
+        toast.add({ severity: 'success', summary: '删除成功', detail: "正在刷新列表", life: 3000 });
+        initData();
+      }else{
+        toast.add({ severity: 'error', summary: '删除出错', detail: response.msg, life: 3000 });
+      }
+    },
+  });
+}
 
 const addDialog=ref<any>(null);
 const showAddHandler=()=>{
@@ -91,7 +135,7 @@ onMounted(()=>{
   align-items: center;
 }
 .table{
-  width: 600px;
+  width: 800px;
   user-select: none;
   margin-top: 15px;
 }
