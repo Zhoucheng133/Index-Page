@@ -23,8 +23,9 @@ onMounted(async ()=>{
     router.replace("/register")
   }else{
     loading.value=false;
-    const username=localStorage.getItem("username");
+    const username=localStorage.getItem("name");
     const password=localStorage.getItem("password");
+
     if(username==null || password==null){
       router.push("/login")
     }
