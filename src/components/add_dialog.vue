@@ -63,6 +63,10 @@ const addHandler=async ()=>{
     toast.add({ severity: 'success', summary: '添加成功', detail: "已刷新列表", life: 3000 });
     emits("refresh");
     showAdd.value=false;
+    name.value="";
+    port.value="";
+    tip.value="";
+    webui.value=false;
   }else{
     toast.add({ severity: 'error', summary: '添加失败', detail: response.msg, life: 3000 });
   }
