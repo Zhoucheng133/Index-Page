@@ -8,6 +8,8 @@
 
 ## 截图
 
+<img src="demo/demo.png" width=500></img>
+
 ## 使用方法
 
 推荐使用Docker部署项目
