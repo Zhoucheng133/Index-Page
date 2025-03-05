@@ -11,6 +11,8 @@ import { Dialog } from 'primevue';
 import axios from 'axios';
 import { hostname } from '../static/env';
 import { useToast } from 'primevue';
+import useClipboard from 'vue-clipboard3';
+const { toClipboard } = useClipboard();
 
 const IPv4=ref("");
 const IPv6=ref("");
@@ -18,7 +20,7 @@ const IPv6=ref("");
 const toast=useToast();
 
 const copy=(ip: string)=>{
-  navigator.clipboard.writeText(ip);
+  toClipboard(ip);
   toast.add({ severity: 'success', summary: '复制成功', detail: "已复制IP地址", life: 3000 });
 }
 
