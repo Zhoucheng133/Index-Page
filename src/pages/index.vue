@@ -11,7 +11,9 @@
         <Column field="port" header="端口" sortable></Column>
         <Column field="webui" header="UI">
           <template #body="slotProps">
-            {{ slotProps.data.webui==1 ? "✅": "❌" }}
+            <!-- {{ slotProps.data.webui==1 ? "✅": "❌" }} -->
+            <i class="pi pi-check" v-if="slotProps.data.webui==1"/>
+            <i class="pi pi-times" v-else/>
           </template>
         </Column>
         <Column field="tip" header="备注"></Column>
