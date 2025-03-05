@@ -3,6 +3,7 @@
     <div class="table">
       <div class="title">
         <div>{{ hello }}</div>
+        <Button icon="pi pi-globe" variant="text" />
         <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAddHandler" />
       </div>
       <DataTable :value="data" stripedRows>
