@@ -3,7 +3,7 @@
     <div class="table">
       <div class="title">
         <div>{{ hello }}</div>
-        <Button icon="pi pi-globe" variant="text" />
+        <Button icon="pi pi-globe" variant="text" @click="showIpHandler" />
         <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAddHandler" />
       </div>
       <DataTable :value="data" stripedRows>
@@ -25,6 +25,7 @@
     </div>
   </div>
   <AddDialog ref="addDialog" @refresh="initData" />
+  <IpDialog ref="ipRef"/>
 </template>
 
 <script lang="ts" setup>
@@ -34,6 +35,7 @@ import { hostname } from '../static/env';
 import { Column, DataTable, useToast, Button } from 'primevue';
 const toast = useToast();
 import AddDialog from '../components/add_dialog.vue';
+import IpDialog from '../components/ip_dialog.vue';
 import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 
@@ -72,6 +74,13 @@ const delHandler=async (event: any, item: Data)=>{
       }
     },
   });
+}
+
+const ipRef=ref<any>(null);
+const showIpHandler=()=>{
+  if(ipRef){
+    ipRef.value.showIpHandler();
+  }
 }
 
 const addDialog=ref<any>(null);
