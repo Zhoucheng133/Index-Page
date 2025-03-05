@@ -17,7 +17,7 @@
         <Column header="操作">
           <template #body="slotProps">
             <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
-            <Button icon="pi pi-link" style="margin-left: 10px;" @click="openHandler(slotProps.data)" />
+            <Button v-if="slotProps.data.webui==1" icon="pi pi-link" style="margin-left: 10px;" @click="openHandler(slotProps.data)" />
           </template>
         </Column>
       </DataTable>
