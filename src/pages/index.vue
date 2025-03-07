@@ -1,32 +1,34 @@
 <template>
   <div class="bg">
-    <div class="table">
+    <div class="content">
       <div class="title">
         <div>{{ hello }}</div>
         <Button icon="pi pi-globe" variant="text" @click="showIpHandler" />
         <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAddHandler" />
       </div>
-      <DataTable :value="data" stripedRows>
-        <Column field="name" header="名称">
+      <div class="table_content">
+        <DataTable :value="data" stripedRows scrollable>
+          <Column field="name" header="名称" style="min-width: 120px;">
+              <template #body="slotProps">
+                <div :class="slotProps.data.webui==1 ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
+              </template>
+          </Column>
+          <Column field="port" header="端口" sortable style="min-width: 100px;"></Column>
+          <Column field="webui" header="UI" style="min-width: 50px;">
             <template #body="slotProps">
-              <div :class="slotProps.data.webui==1 ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
+              <i class="pi pi-check" v-if="slotProps.data.webui==1"/>
+              <i class="pi pi-times" v-else/>
             </template>
-        </Column>
-        <Column field="port" header="端口" sortable></Column>
-        <Column field="webui" header="UI">
-          <template #body="slotProps">
-            <i class="pi pi-check" v-if="slotProps.data.webui==1"/>
-            <i class="pi pi-times" v-else/>
-          </template>
-        </Column>
-        <Column field="tip" header="备注"></Column>
-        <Column header="操作">
-          <template #body="slotProps">
-            <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
-            <Button variant="text" icon="pi pi-pen-to-square" style="margin-left: 10px;" @click="editHandler" />
-          </template>
-        </Column>
-      </DataTable>
+          </Column>
+          <Column field="tip" header="备注" style="min-width: 100px;"></Column>
+          <Column header="操作" style="min-width: 150px;">
+            <template #body="slotProps">
+              <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
+              <Button variant="text" icon="pi pi-pen-to-square" style="margin-left: 10px;" @click="editHandler" />
+            </template>
+          </Column>
+        </DataTable>
+      </div>
     </div>
   </div>
   <AddDialog ref="addDialog" @refresh="initData" />
@@ -150,14 +152,22 @@ onMounted(()=>{
   display: flex;
   align-items: center;
 }
+.table_content{
+  width: 100%;
+}
 .bg{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.table{
+.content{
   width: 800px;
   user-select: none;
   margin-top: 15px;
+}
+@media screen and (max-width: 840px) {
+  .content {
+    width: calc(100vw - 40px);
+  }
 }
 </style>
