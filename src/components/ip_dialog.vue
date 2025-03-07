@@ -24,7 +24,7 @@ const copy=(ip: string)=>{
   toast.add({ severity: 'success', summary: '复制成功', detail: "已复制IP地址", life: 3000 });
 }
 
-onMounted(async ()=>{
+const get=async ()=>{
   const {data: ipv4R}=await axios.get(`${hostname}/api/ipv4`, {
     headers: {
       name: localStorage.getItem("name"),
@@ -43,12 +43,13 @@ onMounted(async ()=>{
   if(ipv6R.ok){
     IPv6.value=ipv6R.msg;
   }
-})
+}
 
 const showIp=ref(false);
 
 const showIpHandler=()=>{
   showIp.value=true;
+  get();
 }
 
 defineExpose({
