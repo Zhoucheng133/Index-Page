@@ -7,11 +7,14 @@
         <Button label="添加" style="margin-left: auto;" variant="text" size="small" @click="showAddHandler" />
       </div>
       <DataTable :value="data" stripedRows>
-        <Column field="name" header="名称"></Column>
+        <Column field="name" header="名称">
+            <template #body="slotProps">
+              <div :class="slotProps.data.webui==1 ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
+            </template>
+        </Column>
         <Column field="port" header="端口" sortable></Column>
         <Column field="webui" header="UI">
           <template #body="slotProps">
-            <!-- {{ slotProps.data.webui==1 ? "✅": "❌" }} -->
             <i class="pi pi-check" v-if="slotProps.data.webui==1"/>
             <i class="pi pi-times" v-else/>
           </template>
@@ -20,7 +23,7 @@
         <Column header="操作">
           <template #body="slotProps">
             <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
-            <Button v-if="slotProps.data.webui==1" icon="pi pi-link" style="margin-left: 10px;" @click="openHandler(slotProps.data)" />
+            <Button variant="text" icon="pi pi-pen-to-square" style="margin-left: 10px;" @click="editHandler" />
           </template>
         </Column>
       </DataTable>
@@ -41,8 +44,14 @@ import IpDialog from '../components/ip_dialog.vue';
 import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 
+const editHandler=()=>{
+  // TODO 编辑
+}
+
 const openHandler=(item: Data)=>{
-  window.location.href=`http://${window.location.hostname}:${item.port}`;
+  if(item.webui==1){
+    window.location.href=`http://${window.location.hostname}:${item.port}`;
+  }
 }
 
 const delHandler=async (event: any, item: Data)=>{
