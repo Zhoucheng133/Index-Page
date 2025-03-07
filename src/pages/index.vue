@@ -24,15 +24,16 @@
           <Column header="操作" style="min-width: 150px;">
             <template #body="slotProps">
               <Button severity="danger" variant="text" icon="pi pi-trash" @click="(e)=>delHandler(e, slotProps.data)" />
-              <Button variant="text" icon="pi pi-pen-to-square" style="margin-left: 10px;" @click="editHandler" />
+              <Button variant="text" icon="pi pi-pen-to-square" style="margin-left: 10px;" @click="editHandler(slotProps.data)" />
             </template>
           </Column>
         </DataTable>
       </div>
     </div>
   </div>
-  <AddDialog ref="addDialog" @refresh="initData" />
+  <AddDialog ref="addRef" @refresh="initData" />
   <IpDialog ref="ipRef"/>
+  <EditDialog ref="editRef" @refresh="initData" />
 </template>
 
 <script lang="ts" setup>
@@ -43,11 +44,16 @@ import { Column, DataTable, useToast, Button } from 'primevue';
 const toast = useToast();
 import AddDialog from '../components/add_dialog.vue';
 import IpDialog from '../components/ip_dialog.vue';
+import EditDialog from '../components/edit_dialog.vue';
 import { useConfirm } from "primevue/useconfirm";
+import type { Data } from '../static/interface';
 const confirm = useConfirm();
 
-const editHandler=()=>{
-  // TODO 编辑
+const editRef=ref<any>(null)
+const editHandler=(item: Data)=>{
+  if(editRef.value){
+    editRef.value.showEditHandler(item);
+  }
 }
 
 const openHandler=(item: Data)=>{
@@ -96,19 +102,11 @@ const showIpHandler=()=>{
   }
 }
 
-const addDialog=ref<any>(null);
+const addRef=ref<any>(null);
 const showAddHandler=()=>{
-  if(addDialog.value){
-    addDialog.value.showAddHandler();
+  if(addRef.value){
+    addRef.value.showAddHandler();
   }
-}
-
-interface Data{
-  id: number,
-  name: string,
-  port: string,
-  webui: number,
-  tip: string
 }
 
 const hello=ref("");
