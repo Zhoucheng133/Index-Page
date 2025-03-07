@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { Dialog } from 'primevue';
 import axios from 'axios';
 import { hostname } from '../static/env';
