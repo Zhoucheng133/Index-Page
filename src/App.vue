@@ -12,6 +12,7 @@ import { hostname } from './static/env';
 import { ConfirmPopup } from 'primevue';
 const router=useRouter();
 import Toast from 'primevue/toast';
+import store from './store/store';
 const loading=ref(true);
 
 onMounted(async ()=>{
@@ -23,11 +24,12 @@ onMounted(async ()=>{
     router.replace("/register")
   }else{
     loading.value=false;
-    const username=localStorage.getItem("name");
-    const password=localStorage.getItem("password");
+    const token=localStorage.getItem("token");
 
-    if(username==null || password==null){
+    if(token==null){
       router.push("/login")
+    }else{
+      store().token=token;
     }
   }
 })
