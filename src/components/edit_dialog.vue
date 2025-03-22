@@ -29,6 +29,7 @@ import type { Data } from '../static/interface';
 import { Dialog, InputText, Button, Checkbox, useToast } from 'primevue';
 import { hostname } from '../static/env';
 import axios from 'axios';
+import store from '../store/store';
 
 const showEdit=ref(false);
 
@@ -67,8 +68,7 @@ const editHandler=async ()=>{
     webui: webui.value?1:0
   }, {
     headers: {
-      name: localStorage.getItem("name"),
-      password: localStorage.getItem("password")
+      token: store().token
     }
   })
 

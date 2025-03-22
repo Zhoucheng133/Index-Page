@@ -47,6 +47,7 @@ import IpDialog from '../components/ip_dialog.vue';
 import EditDialog from '../components/edit_dialog.vue';
 import { useConfirm } from "primevue/useconfirm";
 import type { Data } from '../static/interface';
+import store from '../store/store';
 const confirm = useConfirm();
 
 const editRef=ref<any>(null)
@@ -81,8 +82,7 @@ const delHandler=async (event: any, item: Data)=>{
     accept: async () => {
       const {data: response}=await axios.delete(`${hostname}/api/del/${item.id}`, {
         headers: {
-          name: localStorage.getItem("name"),
-          password: localStorage.getItem("password")
+          token: store().token
         }
       });
       if(response.msg){
@@ -125,8 +125,7 @@ const data=ref<Data[]>([]);
 async function initData(){
   const {data: response}=await axios.get(`${hostname}/api/list`, {
     headers: {
-      name: localStorage.getItem("name"),
-      password: localStorage.getItem("password")
+      auth: store().token
     }
   });
   if(response!=null && response.ok){

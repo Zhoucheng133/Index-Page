@@ -37,8 +37,7 @@ const loginHandler=async ()=>{
     password: CryptoJS.SHA256(password.value).toString()
   })
   if(response.ok){
-    localStorage.setItem("name", name.value)
-    localStorage.setItem("password", CryptoJS.SHA256(password.value).toString())
+    localStorage.setItem("token", response.msg);
     toast.add({ severity: 'success', summary: '登录成功', detail: '正在跳转到主页', life: 3000 });
     router.push("/");
   }else{

@@ -12,6 +12,7 @@ import axios from 'axios';
 import { hostname } from '../static/env';
 import { useToast } from 'primevue';
 import useClipboard from 'vue-clipboard3';
+import store from '../store/store';
 const { toClipboard } = useClipboard();
 
 const IPv4=ref("");
@@ -27,8 +28,7 @@ const copy=(ip: string)=>{
 const get=async ()=>{
   const {data: ipv4R}=await axios.get(`${hostname}/api/ipv4`, {
     headers: {
-      name: localStorage.getItem("name"),
-      password: localStorage.getItem("password")
+      token: store().token
     }
   });
   if(ipv4R.ok){
@@ -36,8 +36,7 @@ const get=async ()=>{
   }
   const {data: ipv6R}=await axios.get(`${hostname}/api/ipv6`, {
     headers: {
-      name: localStorage.getItem("name"),
-      password: localStorage.getItem("password")
+      token: store().token
     }
   });
   if(ipv6R.ok){
