@@ -28,7 +28,7 @@ const copy=(ip: string)=>{
 const get=async ()=>{
   const {data: ipv4R}=await axios.get(`${hostname}/api/ipv4`, {
     headers: {
-      token: store().token
+      auth: store().token
     }
   });
   if(ipv4R.ok){
@@ -36,7 +36,7 @@ const get=async ()=>{
   }
   const {data: ipv6R}=await axios.get(`${hostname}/api/ipv6`, {
     headers: {
-      token: store().token
+      auth: store().token
     }
   });
   if(ipv6R.ok){

@@ -68,7 +68,7 @@ const editHandler=async ()=>{
     webui: webui.value?1:0
   }, {
     headers: {
-      token: store().token
+      auth: store().token
     }
   })
 

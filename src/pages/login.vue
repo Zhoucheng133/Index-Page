@@ -24,6 +24,7 @@ import axios from 'axios';
 import { hostname } from '../static/env';
 import CryptoJS from 'crypto-js';
 import { useRouter } from 'vue-router';
+import store from '../store/store';
 const toast = useToast();
 const router=useRouter();
 
@@ -38,6 +39,7 @@ const loginHandler=async ()=>{
   })
   if(response.ok){
     localStorage.setItem("token", response.msg);
+    store().token=response.msg;
     toast.add({ severity: 'success', summary: '登录成功', detail: '正在跳转到主页', life: 3000 });
     router.push("/");
   }else{

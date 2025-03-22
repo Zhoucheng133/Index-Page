@@ -82,7 +82,7 @@ const delHandler=async (event: any, item: Data)=>{
     accept: async () => {
       const {data: response}=await axios.delete(`${hostname}/api/del/${item.id}`, {
         headers: {
-          token: store().token
+          auth: store().token
         }
       });
       if(response.msg){
