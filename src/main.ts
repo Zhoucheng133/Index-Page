@@ -8,6 +8,8 @@ import router from './router';
 import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css'
 import ConfirmationService from 'primevue/confirmationservice';
+import { createPinia } from 'pinia';
+const pinia = createPinia()
 
 const color="cyan";
 const MyPreset = definePreset(Aura, {
@@ -37,6 +39,7 @@ app.use(PrimeVue, {
 });
 app.use(router);
 app.use(ToastService);
-app.use(ConfirmationService)
+app.use(ConfirmationService);
+app.use(pinia);
 
 app.mount('#app');
