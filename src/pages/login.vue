@@ -9,7 +9,7 @@
       </div>
       <div class="item">
         <div className="label">密码</div>
-        <InputText type="password" v-model="password" style="width: 100%;" />
+        <InputText type="password" v-model="password" style="width: 100%;" @keydown.enter="loginHandler" />
       </div>
       <Button style="margin-top: 30px; width: 100%; margin-bottom: 50px;" @click="loginHandler">登录</Button>
     </div>

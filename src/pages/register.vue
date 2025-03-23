@@ -13,7 +13,7 @@
       </div>
       <div class="item">
         <div className="label">重复密码</div>
-        <InputText type="password" v-model="rePassword" style="width: 100%;" />
+        <InputText type="password" v-model="rePassword" style="width: 100%;" @keydown.enter="registerHandler" />
       </div>
       <Button style="margin-top: 30px; width: 100%; margin-bottom: 50px;" @click="registerHandler">注册</Button>
     </div>
