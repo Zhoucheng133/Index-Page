@@ -8,9 +8,9 @@
       </div>
       <div class="table_content">
         <DataTable :value="data" stripedRows scrollable>
-          <Column field="icon" header="" style="width: 72px;">
+          <Column field="icon" header="" style="width: 65px;">
             <template #body="slotProps">
-              <img v-if="slotProps.data.icon.length!=0" :src="slotProps.data.icon" alt="" width="40px" draggable="false">
+              <img v-if="slotProps.data.icon.length!=0" :src="slotProps.data.icon" alt="" width="34px" draggable="false">
             </template>
           </Column>
           <Column field="name" header="名称" style="min-width: 120px;">
