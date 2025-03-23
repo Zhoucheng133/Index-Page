@@ -8,6 +8,11 @@
       </div>
       <div class="table_content">
         <DataTable :value="data" stripedRows scrollable>
+          <Column field="icon" header="" style="width: 72px;">
+            <template #body="slotProps">
+              <img v-if="slotProps.data.icon.length!=0" :src="slotProps.data.icon" alt="" width="40px" draggable="false">
+            </template>
+          </Column>
           <Column field="name" header="名称" style="min-width: 120px;">
               <template #body="slotProps">
                 <div :class="slotProps.data.webui=='1' ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
