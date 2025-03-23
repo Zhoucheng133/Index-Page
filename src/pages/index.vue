@@ -58,7 +58,7 @@ const editHandler=(item: Data)=>{
 }
 
 const openHandler=(item: Data)=>{
-  if(item.webui==1){
+  if(item.webui=="1"){
     window.location.href=`http://${window.location.hostname}:${item.port}`;
   }
 }
