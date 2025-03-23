@@ -1,10 +1,6 @@
 <template>
   <Dialog v-model:visible="showAdd" modal header="添加一个页面" :style="{ width: '25rem' }" >
     <div class="flex items-center gap-4 mb-4">
-      <label for="icon" class="font-semibold w-24" style="flex-shrink: 0;">图标</label>
-      <InputText id="icon" class="flex-auto" autocorrect="off" size="small" v-model="icon" placeholder="http(s)://"/>
-    </div>
-    <div class="flex items-center gap-4 mb-4">
       <label for="name" class="font-semibold w-24">名称</label>
       <InputText id="name" class="flex-auto" autocomplete="off" size="small" v-model="name"/>
     </div>
@@ -41,7 +37,6 @@ const name=ref("");
 const port=ref("");
 const tip=ref("");
 const webui=ref(false);
-const icon=ref("");
 
 const addHandler=async ()=>{
   if(name.value.length==0){
@@ -58,7 +53,6 @@ const addHandler=async ()=>{
     port: port.value,
     tip: tip.value,
     webui: webui.value?"1":"0",
-    icon: icon.value
   }, {
     headers: {
       auth: store().token
@@ -73,7 +67,6 @@ const addHandler=async ()=>{
     port.value="";
     tip.value="";
     webui.value=false;
-    icon.value="";
   }else{
     toast.add({ severity: 'error', summary: '添加失败', detail: response.msg, life: 3000 });
   }

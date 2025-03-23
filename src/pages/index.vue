@@ -8,15 +8,10 @@
       </div>
       <div class="table_content">
         <DataTable :value="data" stripedRows scrollable>
-          <Column field="icon" header="" style="width: 65px;">
-            <template #body="slotProps">
-              <img v-if="slotProps.data.icon.length!=0" :src="slotProps.data.icon" alt="" width="34px" draggable="false">
-            </template>
-          </Column>
           <Column field="name" header="名称" style="min-width: 120px;">
-              <template #body="slotProps">
-                <div :class="slotProps.data.webui=='1' ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
-              </template>
+            <template #body="slotProps">
+              <div :class="slotProps.data.webui=='1' ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
+            </template>
           </Column>
           <Column field="port" header="端口" sortable style="min-width: 100px;"></Column>
           <Column field="webui" header="UI" style="min-width: 50px;">

@@ -4,5 +4,4 @@ export interface Data{
   port: string,
   webui: string,
   tip: string,
-  icon: string
 }

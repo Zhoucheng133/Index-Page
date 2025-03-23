@@ -1,10 +1,6 @@
 <template>
   <Dialog v-model:visible="showEdit" modal header="编辑" :style="{ width: '25rem' }" >
     <div class="flex items-center gap-4 mb-4">
-      <label for="icon" class="font-semibold w-24" style="flex-shrink: 0;">图标</label>
-      <InputText id="icon" class="flex-auto" autocorrect="off" size="small" v-model="icon" placeholder="http(s)://"/>
-    </div>
-    <div class="flex items-center gap-4 mb-4">
       <label for="username" class="font-semibold w-24">名称</label>
       <InputText id="username" class="flex-auto" autocomplete="off" size="small" v-model="name"/>
     </div>
@@ -44,10 +40,8 @@ const name=ref("");
 const port=ref("");
 const tip=ref("");
 const webui=ref(false);
-const icon=ref("");
 
 const showEditHandler=(item: Data)=>{
-  icon.value=item.icon;
   id.value=item.id;
   name.value=item.name;
   port.value=item.port;
@@ -71,7 +65,6 @@ const editHandler=async ()=>{
     port: port.value,
     tip: tip.value,
     webui: webui.value?"1":"0",
-    icon: icon.value
   }, {
     headers: {
       auth: store().token
