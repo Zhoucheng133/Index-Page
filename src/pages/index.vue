@@ -10,7 +10,7 @@
         <DataTable :value="data" stripedRows scrollable>
           <Column field="name" header="名称" style="min-width: 120px;">
               <template #body="slotProps">
-                <div :class="slotProps.data.webui==1 ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
+                <div :class="slotProps.data.webui=='1' ? 'underline cursor-pointer':''" @click="openHandler(slotProps.data)">{{ slotProps.data.name }}</div>
               </template>
           </Column>
           <Column field="port" header="端口" sortable style="min-width: 100px;"></Column>

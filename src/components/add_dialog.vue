@@ -1,13 +1,8 @@
 <template>
   <Dialog v-model:visible="showAdd" modal header="添加一个页面" :style="{ width: '25rem' }" >
     <div class="flex items-center gap-4 mb-4">
-      <label class="font-semibold w-24" style="flex-shrink: 0;">图标</label>
-      <input ref="fileRef" type="file" @change="onFileChange" accept="image/*" v-show="false" />
-      <Button label="选择图标文件" size="small" severity="secondary" @click="fileRef.click()" v-if="!icon" />
-      <div v-else style="height: 35px; display: flex; align-items: center; width: 100%;">
-        <div class="select-none">{{ icon.name }}</div>
-        <Button size="small" label="删除" severity="danger" style="margin-left: auto;" variant="text" @click="delFile" />
-      </div>
+      <label for="icon" class="font-semibold w-24" style="flex-shrink: 0;">图标</label>
+      <InputText id="icon" class="flex-auto" autocorrect="off" size="small" v-model="icon" placeholder="http(s)://"/>
     </div>
     <div class="flex items-center gap-4 mb-4">
       <label for="name" class="font-semibold w-24">名称</label>
@@ -41,21 +36,12 @@ import store from '../store/store';
 const showAdd=ref(false);
 const showAddHandler=()=>showAdd.value=true;
 const toast=useToast();
-const fileRef = ref();
 
 const name=ref("");
 const port=ref("");
 const tip=ref("");
 const webui=ref(false);
-const icon=ref();
-
-const delFile=()=>{
-  icon.value=undefined;
-}
-
-const onFileChange=(event: any)=>{
-  icon.value=event.target.files[0];
-}
+const icon=ref("");
 
 const addHandler=async ()=>{
   if(name.value.length==0){
@@ -65,18 +51,15 @@ const addHandler=async ()=>{
     toast.add({ severity: 'error', summary: '添加失败', detail: "端口不能为空", life: 3000 });
     return;
   }
-
-  const formData = new FormData();
-  formData.append("name", name.value);
-  formData.append("port", port.value);
-  formData.append("tip", tip.value);
-  formData.append("webui", webui.value?"1": "0");
-  if (icon.value) {
-    formData.append("icon", icon.value);
-  }
   
   
-  const {data: response}=await axios.post(`${hostname}/api/add`, formData, {
+  const {data: response}=await axios.post(`${hostname}/api/add`, {
+    name: name.value,
+    port: port.value,
+    tip: tip.value,
+    webui: webui.value?"1":"0",
+    icon: icon.value
+  }, {
     headers: {
       auth: store().token
     }
