@@ -48,7 +48,9 @@ import EditDialog from '../components/edit_dialog.vue';
 import { useConfirm } from "primevue/useconfirm";
 import type { Data } from '../static/interface';
 import store from '../store/store';
+import { useRouter } from 'vue-router';
 const confirm = useConfirm();
+const router=useRouter();
 
 const editRef=ref<any>(null)
 const editHandler=(item: Data)=>{
@@ -132,6 +134,7 @@ async function initData(){
     data.value=response.msg;
   }else if(response!=null){
     toast.add({ severity: 'error', summary: '请求出错', detail: response.msg, life: 3000 });
+    router.push("/login");
   }
 }
 
