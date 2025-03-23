@@ -9,16 +9,16 @@
       <InputText id="name" class="flex-auto" autocomplete="off" size="small" v-model="name"/>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label for="email" class="font-semibold w-24">端口</label>
-      <InputText id="email" class="flex-auto" autocomplete="off" size="small" type="number" v-model="port"/>
+      <label for="port" class="font-semibold w-24">端口</label>
+      <InputText id="port" class="flex-auto" autocomplete="off" size="small" type="number" v-model="port"/>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label for="email" class="font-semibold w-24">备注</label>
-      <InputText id="email" class="flex-auto" autocomplete="off" size="small" v-model="tip" />
+      <label for="tip" class="font-semibold w-24">备注</label>
+      <InputText id="tip" class="flex-auto" autocomplete="off" size="small" v-model="tip" />
     </div>
     <div class="flex items-center gap-2 mb-8">
-        <Checkbox v-model="webui" binary inputId="checkbox"/>
-        <label for="checkbox" style="user-select: none; cursor: pointer;">WebUI</label>
+      <Checkbox v-model="webui" binary inputId="checkbox"/>
+      <label for="checkbox" style="user-select: none; cursor: pointer;">WebUI</label>
     </div>
     <div class="flex justify-end gap-2">
       <Button type="button" label="取消" severity="secondary" @click="showAdd=false" size="small"></Button>
