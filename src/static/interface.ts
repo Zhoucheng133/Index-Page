@@ -1,7 +1,8 @@
 export interface Data{
-  id: number,
+  id: string,
   name: string,
   port: string,
-  webui: number,
-  tip: string
+  webui: string,
+  tip: string,
+  icon: string
 }
