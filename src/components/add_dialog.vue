@@ -73,6 +73,7 @@ const addHandler=async ()=>{
     port.value="";
     tip.value="";
     webui.value=false;
+    icon.value="";
   }else{
     toast.add({ severity: 'error', summary: '添加失败', detail: response.msg, life: 3000 });
   }
